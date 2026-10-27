@@ -1,4 +1,4 @@
-const CACHE = 'tongxing-v1';
+const CACHE = 'tongxing-v2';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -12,7 +12,10 @@ self.addEventListener('install', function(event) {
       ]);
     })
   );
-  self.skipWaiting();
+});
+
+self.addEventListener('message', function(event) {
+  if (event.data === 'SKIP_WAITING') self.skipWaiting();
 });
 
 self.addEventListener('activate', function(event) {
@@ -30,10 +33,24 @@ self.addEventListener('activate', function(event) {
 
 self.addEventListener('fetch', function(event) {
   if (event.request.method !== 'GET') return;
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).then(function(response) {
+        if (response && response.ok) {
+          var clone = response.clone();
+          caches.open(CACHE).then(function(cache) { cache.put(event.request, clone); });
+        }
+        return response;
+      }).catch(function() {
+        return caches.match(event.request).then(function(page) {
+          return page || caches.match('./index.html');
+        });
+      })
+    );
+    return;
+  }
   event.respondWith(
-    caches.match(event.request).then(function(cached) {
-      if (cached) return cached;
-      return fetch(event.request).then(function(response) {
+    fetch(event.request).then(function(response) {
         if (response && response.status === 200 && response.type === 'basic') {
           var clone = response.clone();
           caches.open(CACHE).then(function(cache) {
@@ -41,9 +58,6 @@ self.addEventListener('fetch', function(event) {
           });
         }
         return response;
-      }).catch(function() {
-        return caches.match('./index.html');
-      });
-    })
+      }).catch(function() { return caches.match(event.request); })
   );
 });

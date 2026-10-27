@@ -149,6 +149,35 @@ render();
 })();
 </script><script>
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('./sw.js').catch(function(err){console.warn('SW注册失败', err)});
+  var hadController = Boolean(navigator.serviceWorker.controller);
+  var updateBanner = document.createElement('div');
+  updateBanner.className = 'update-banner';
+  updateBanner.hidden = true;
+  updateBanner.style.cssText = 'position:fixed;z-index:1000;left:50%;bottom:20px;transform:translateX(-50%);width:min(520px,calc(100% - 28px));align-items:center;gap:14px;padding:12px 14px 12px 18px;border-radius:14px;background:#102b3d;color:#fff;box-shadow:0 10px 32px rgba(16,43,61,.25);font-size:14px';
+  updateBanner.innerHTML = '<span>新版本已就绪，刷新后即可使用。</span><button type="button">立即刷新</button>';
+  updateBanner.querySelector('button').style.cssText = 'margin-left:auto;white-space:nowrap;border:0;border-radius:9px;padding:9px 13px;background:#dff5e9;color:#197a5b;font:inherit;font-weight:800;cursor:pointer';
+  document.body.appendChild(updateBanner);
+  navigator.serviceWorker.addEventListener('controllerchange', function() {
+    if (!hadController) { hadController = true; return; }
+    window.location.reload();
+  });
+  navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' }).then(function(registration) {
+    function showUpdate(worker) {
+      if (!worker || worker.state !== 'installed' || !navigator.serviceWorker.controller) return;
+      updateBanner.hidden = false;
+      updateBanner.style.display = 'flex';
+      updateBanner.querySelector('button').onclick = function() {
+        worker.postMessage('SKIP_WAITING');
+      };
+    }
+    if (registration.waiting) showUpdate(registration.waiting);
+    registration.addEventListener('updatefound', function() {
+      var worker = registration.installing;
+      if (worker) worker.addEventListener('statechange', function() { showUpdate(worker); });
+    });
+    registration.update().catch(function() {});
+    window.setInterval(function() { registration.update().catch(function() {}); }, 60000);
+    window.addEventListener('focus', function() { registration.update().catch(function() {}); });
+  }).catch(function(err){console.warn('SW注册失败', err)});
 }
 </script></body></html>
