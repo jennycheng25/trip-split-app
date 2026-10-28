@@ -1,4 +1,4 @@
-const CACHE = 'tongxing-v2';
+const CACHE = 'tongxing-v3';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -6,6 +6,7 @@ self.addEventListener('install', function(event) {
       return cache.addAll([
         './',
         './index.html',
+        './i18n.js',
         './manifest.json',
         './icons/icon-192.png',
         './icons/icon-512.png'
