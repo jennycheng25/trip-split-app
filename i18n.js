@@ -36,6 +36,8 @@
       let result = value;
       if (lang === 'en') result = result.replace(/需要支付\s+(\d+)\s+笔/g, (_, count) => `${count} ${count === '1' ? 'payment' : 'payments'} due`);
       else result = result.replace(/(\d+)\s+payments?\s+due/g, (_, count) => `需要支付 ${count} 笔`);
+      if (lang === 'en') result = result.replace(/(\d+)\s*项/g, (_, count) => `${count} ${Number(count) <= 1 ? 'item' : 'items'}`);
+      else result = result.replace(/(\d+)\s+items?\b/g, (_, count) => `${count} 项`);
       const pairs = lang === 'en' ? phrasePairs : phrasePairs.map(([zh,en])=>[en,zh]).sort((a,b)=>b[0].length-a[0].length);
       for (const [from,to] of pairs) if (from) result = result.split(from).join(to);
       return result;
