@@ -333,7 +333,6 @@ render();
 let receiptPhotoDraft;
 $('#billForm .actions').insertAdjacentHTML('beforebegin',`<section class="receipt-upload" aria-label="小票照片">
   <span class="receipt-upload-title">小票照片（可选）</span>
-  <p class="receipt-upload-hint">拍照或从相册选择，照片会压缩后保存在这台设备上。</p>
   <label class="receipt-upload-button" for="receiptPhotoInput">拍照或上传</label>
   <input id="receiptPhotoInput" type="file" accept="image/*" hidden>
   <div class="receipt-upload-preview" id="receiptPhotoPreview" hidden><img alt="小票照片预览"><button type="button" id="removeReceiptPhoto">移除照片</button></div>
