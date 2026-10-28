@@ -2,7 +2,7 @@
   try {
     const translations = {
       zh: {
-        appName:'与鹅同行', editTrip:'编辑旅行', switchTrip:'切换旅行', bills:'账单', people:'成员', settle:'结算', newBill:'新建账单', newTrip:'新建旅行',
+        appName:'与鹅同行', requiredField:'请填写该字段。', invalidValue:'请输入有效值。', invalidNumber:'请输入数字。', numberTooSmall:'请输入大于或等于 {value} 的数值。', numberTooLarge:'请输入小于或等于 {value} 的数值。', invalidStep:'请输入有效的数值。', invalidFormat:'请按要求的格式填写。', editTrip:'编辑旅行', switchTrip:'切换旅行', bills:'账单', people:'成员', settle:'结算', newBill:'新建账单', newTrip:'新建旅行',
         newBillTitle:'新建账单', editBillTitle:'编辑账单', merchantName:'商家 / 项目名称', payer:'谁先付款？', category:'类别', dining:'餐饮', transport:'交通', tickets:'门票', lodging:'住宿', other:'其他', date:'日期', taxRate:'当地税率（%）', taxAmount:'账单实际税额（$）', tip:'小费 / 服务费（$）', tipPayer:'小费承担者', allSplit:'全体成员均分', cancel:'取消', createAdd:'创建并添加项目', save:'保存', saveItem:'保存项目', addItem:'添加消费项目', itemName:'项目名称', preTaxPrice:'税前价格（$）', splitMethod:'分摊方式', equalSplit:'消费人均分', singleSplit:'一人承担', consumers:'消费人', managePeople:'管理成员', addMember:'添加成员', newMember:'新增成员', memberName:'成员名称', close:'关闭', delete:'删除', edit:'编辑',
         tripTotal:'旅行总开销', allBills:'全部账单', addBill:'添加账单', currentBalance:'当前余额', viewSettlement:'查看结算', noBills:'还没有账单', firstReceipt:'从第一张收据开始吧', billTotal:'账单合计', owing:'应付', receivable:'应收', paid:'已付', shouldPay:'应承担', suggestedTransfer:'建议这样转账', transfersCombined:'已将所有账单合并，并尽量减少转账次数。', allSettled:'大家已经结清。',
         fellowMembers:'同行成员', manageTripMembers:'管理旅行成员与各自的付款、消费情况', memberCount:'位成员', member:'成员', paidAmount:'已付款', owedAmount:'应承担', balance:'余额', tripSettlement:'旅行结算', settledBalances:'按以下转账后，所有人的余额都会归零。', pendingTotal:'待结算总额', transferList:'转账清单', copyList:'复制清单', noTransfer:'无需转账，已经全部结清。', preTaxAmount:'税前金额', consumer:'消费人', backBills:'返回账单', addProject:'添加项目', subtotal:'商品小计', taxShare:'税额（按税前金额比例分摊）', tipService:'小费 / 服务费', billSplit:'这张账单的分摊',
@@ -10,7 +10,7 @@
         noNote:'无备注', noDate:'暂无日期', emptyReceipt:'还没有上传收据照片', receiptDetails:'收据详细', receiptPhoto:'收据照片（可选）', takeUpload:'拍照或上传', removePhoto:'移除照片', recognizeItems:'识别消费项目', addSelected:'添加选中项目', noPayables:'当前没有待付款项。',
         taxLineAuto:'税额（按当地税率自动计算）', amount:'金额', editBillButton:'编辑账单', billUpdated:'账单已更新', addMembersHint:'请先添加至少一位旅行成员',
         phrases: {
-          '例如：':'e.g. ', '输入昵称':'Enter a nickname', '例如：日期/分工/规则/其他':'For example: dates, roles, rules', '例如：加州海岸线':'For example: California Coast',
+          '例如：':'e.g. ', '输入昵称':'Enter a nickname', '例如：日期/分工/规则/其他':'e.g. dates, roles, rules', '例如：加州海岸线':'e.g. California Coast',
           '创建':'Create', '保存修改':'Save changes', '删除账单':'Delete bill', '删除项目':'Delete item', '移除成员':'Remove member',
           '含税 ':'Incl. tax ', '先付':' paid first', ' 项':' items', ' 笔账单 · ':' bills · ', ' 位同行者':' travelers', ' 位成员':' members',
           '税额':'Tax', '当地税率':'Local tax rate', '税前价格':'Pre-tax price', '项目名称':'Item name', '商家 / 项目名称':'Merchant / item name',
@@ -25,7 +25,7 @@
       en: {}
     };
     const enKeys = {
-      appName:'PenguinCrew', editTrip:'Edit trip', switchTrip:'Switch trip', bills:'Bills', people:'People', settle:'Settle up', newBill:'New bill', newTrip:'New trip', newBillTitle:'New bill', editBillTitle:'Edit bill', merchantName:'Merchant / item name', payer:'Who paid first?', category:'Category', dining:'Dining', transport:'Transport', tickets:'Tickets', lodging:'Lodging', other:'Other', date:'Date', taxRate:'Local tax rate (%)', taxAmount:'Actual bill tax ($)', tip:'Tip / service fee ($)', tipPayer:'Tip payer', allSplit:'Split among everyone', cancel:'Cancel', createAdd:'Create and add items', save:'Save', saveItem:'Save item', addItem:'Add item', itemName:'Item name', preTaxPrice:'Pre-tax price ($)', splitMethod:'Split method', equalSplit:'Split equally', singleSplit:'One person pays', consumers:'People who ordered', managePeople:'Manage members', addMember:'Add member', newMember:'Add member', memberName:'Member name', close:'Close', delete:'Delete', edit:'Edit', tripTotal:'Trip total', allBills:'All bills', addBill:'Add bill', currentBalance:'Current balance', viewSettlement:'View settlement', noBills:'No bills yet', firstReceipt:'Start with your first receipt', billTotal:'Bill total', owing:'Owes', receivable:'Owed', paid:'Paid', shouldPay:'Share', suggestedTransfer:'Suggested transfers', transfersCombined:'Bills are combined to reduce the number of transfers.', allSettled:'Everyone is settled.', fellowMembers:'Trip members', manageTripMembers:'Manage members, payments, and spending', memberCount:'members', member:'Member', paidAmount:'Paid', owedAmount:'Share', balance:'Balance', tripSettlement:'Trip settlement', settledBalances:'These transfers will settle everyone’s balance.', pendingTotal:'Total to settle', transferList:'Transfers', copyList:'Copy list', noTransfer:'No transfers needed. Everyone is settled.', preTaxAmount:'Pre-tax amount', consumer:'People who ordered', backBills:'Back to bills', addProject:'Add item', subtotal:'Items subtotal', taxShare:'Tax (split by pre-tax amount)', tipService:'Tip / service fee', billSplit:'Bill split', tripName:'Trip name', note:'Notes', deleteTripTitle:'Delete this trip?', keepTrip:'Keep trip', deletePersonTitle:'Delete this member?', keepMember:'Keep member', deleteItemTitle:'Delete this item?', keepItem:'Keep item', deleteBillTitle:'Delete this bill?', keepBill:'Keep bill', deleteMember:'Delete member', deleteProject:'Delete item', deleteBill:'Delete bill', noNote:'No notes', noDate:'No date', emptyReceipt:'No receipt photo uploaded yet', receiptDetails:'Receipt details', receiptPhoto:'Receipt photo (optional)', takeUpload:'Take a photo or upload', removePhoto:'Remove photo', recognizeItems:'Scan items', addSelected:'Add selected items', noPayables:'Nothing to pay right now', taxLineAuto:'Tax (calculated from local rate)', amount:'Amount', editBillButton:'Edit bill', billUpdated:'Bill updated', addMembersHint:'Add at least one trip member first'
+      appName:'PenguinCrew', requiredField:'Please fill out this field.', invalidValue:'Please enter a valid value.', invalidNumber:'Please enter a number.', numberTooSmall:'Please enter a value greater than or equal to {value}.', numberTooLarge:'Please enter a value less than or equal to {value}.', invalidStep:'Please enter a valid value.', invalidFormat:'Please match the requested format.', editTrip:'Edit trip', switchTrip:'Switch trip', bills:'Bills', people:'People', settle:'Settle up', newBill:'New bill', newTrip:'New trip', newBillTitle:'New bill', editBillTitle:'Edit bill', merchantName:'Merchant / item name', payer:'Who paid first?', category:'Category', dining:'Dining', transport:'Transport', tickets:'Tickets', lodging:'Lodging', other:'Other', date:'Date', taxRate:'Local tax rate (%)', taxAmount:'Actual bill tax ($)', tip:'Tip / service fee ($)', tipPayer:'Tip payer', allSplit:'Split among everyone', cancel:'Cancel', createAdd:'Create and add items', save:'Save', saveItem:'Save item', addItem:'Add item', itemName:'Item name', preTaxPrice:'Pre-tax price ($)', splitMethod:'Split method', equalSplit:'Split equally', singleSplit:'One person pays', consumers:'People who ordered', managePeople:'Manage members', addMember:'Add member', newMember:'Add member', memberName:'Member name', close:'Close', delete:'Delete', edit:'Edit', tripTotal:'Trip total', allBills:'All bills', addBill:'Add bill', currentBalance:'Current balance', viewSettlement:'View settlement', noBills:'No bills yet', firstReceipt:'Start with your first receipt', billTotal:'Bill total', owing:'Owes', receivable:'Owed', paid:'Paid', shouldPay:'Share', suggestedTransfer:'Suggested transfers', transfersCombined:'Bills are combined to reduce the number of transfers.', allSettled:'Everyone is settled.', fellowMembers:'Trip members', manageTripMembers:'Manage members, payments, and spending', memberCount:'members', member:'Member', paidAmount:'Paid', owedAmount:'Share', balance:'Balance', tripSettlement:'Trip settlement', settledBalances:'These transfers will settle everyone’s balance.', pendingTotal:'Total to settle', transferList:'Transfers', copyList:'Copy list', noTransfer:'No transfers needed. Everyone is settled.', preTaxAmount:'Pre-tax amount', consumer:'People who ordered', backBills:'Back to bills', addProject:'Add item', subtotal:'Items subtotal', taxShare:'Tax (split by pre-tax amount)', tipService:'Tip / service fee', billSplit:'Bill split', tripName:'Trip name', note:'Notes', deleteTripTitle:'Delete this trip?', keepTrip:'Keep trip', deletePersonTitle:'Delete this member?', keepMember:'Keep member', deleteItemTitle:'Delete this item?', keepItem:'Keep item', deleteBillTitle:'Delete this bill?', keepBill:'Keep bill', deleteMember:'Delete member', deleteProject:'Delete item', deleteBill:'Delete bill', noNote:'No notes', noDate:'No date', emptyReceipt:'No receipt photo uploaded yet', receiptDetails:'Receipt details', receiptPhoto:'Receipt photo (optional)', takeUpload:'Take a photo or upload', removePhoto:'Remove photo', recognizeItems:'Scan items', addSelected:'Add selected items', noPayables:'Nothing to pay right now', taxLineAuto:'Tax (calculated from local rate)', amount:'Amount', editBillButton:'Edit bill', billUpdated:'Bill updated', addMembersHint:'Add at least one trip member first'
     };
     translations.en = Object.assign({}, enKeys);
     const zhToEn = Object.assign({}, translations.zh.phrases);
@@ -64,15 +64,31 @@
           while(walker.nextNode()) nodes.push(walker.currentNode);
         }
         nodes.forEach(node=>{if(node.parentElement?.closest('[data-i18n]'))return;const next=translateText(node.nodeValue,lang);if(next!==node.nodeValue)node.nodeValue=next});
-        const elements=root.nodeType===Node.ELEMENT_NODE?[root,...root.querySelectorAll('*')]:[...document.querySelectorAll('*')];
-        elements.forEach(el=>['placeholder','title','aria-label'].forEach(attr=>{if(el.hasAttribute(attr))el.setAttribute(attr,translateText(el.getAttribute(attr),lang))}));
         document.documentElement.lang=lang==='en'?'en':'zh-CN';
+        const elements=root.nodeType===Node.ELEMENT_NODE?[root,...root.querySelectorAll('*')]:[...document.querySelectorAll('*')];
+        elements.forEach(el=>{if(el.matches?.('input,select,textarea,button'))el.lang=document.documentElement.lang;['placeholder','title','aria-label'].forEach(attr=>{if(el.hasAttribute(attr))el.setAttribute(attr,translateText(el.getAttribute(attr),lang))})});
         document.title=lang==='en'?'PenguinCrew':'与鹅同行';
         const mobileTitle=document.querySelector('meta[name="apple-mobile-web-app-title"]');if(mobileTitle)mobileTitle.content=document.title;
       } catch (error) { console.error('Translation update failed',error); }
     }
+    function validationKey(field) {
+      const v=field.validity;
+      if(v.valueMissing)return 'requiredField';
+      if(v.typeMismatch)return 'invalidValue';
+      if(v.badInput)return 'invalidNumber';
+      if(v.rangeUnderflow)return 'numberTooSmall';
+      if(v.rangeOverflow)return 'numberTooLarge';
+      if(v.stepMismatch)return 'invalidStep';
+      if(v.patternMismatch)return 'invalidFormat';
+      return null;
+    }
+    function validationText(field,key) {
+      const template=translations[current][key]||translations[current].invalidValue;
+      const value=key==='numberTooSmall'?field.min:key==='numberTooLarge'?field.max:'';
+      return template.replace('{value}',value);
+    }
     function applyLanguage(lang) {
-      try { current=lang==='en'?'en':'zh';localStorage.setItem('trip-split-language',current);translateRoot(document,current);const button=document.getElementById('languageToggle');if(button){button.textContent=current==='zh'?'EN':'中文';button.setAttribute('aria-label',current==='zh'?'Switch language':'切换语言')} } catch(error) { console.error('Language switch failed',error); }
+      try { current=lang==='en'?'en':'zh';localStorage.setItem('trip-split-language',current);translateRoot(document,current);document.querySelectorAll('[data-i18n-validation]').forEach(field=>field.setCustomValidity(validationText(field,field.dataset.i18nValidation)));const button=document.getElementById('languageToggle');if(button){button.textContent=current==='zh'?'EN':'中文';button.setAttribute('aria-label',current==='zh'?'Switch language':'切换语言')} } catch(error) { console.error('Language switch failed',error); }
     }
     document.addEventListener('DOMContentLoaded',function(){
       try {
@@ -80,6 +96,8 @@
         const browser=(navigator.language||'zh').toLowerCase();current=saved==='en'||saved==='zh'?saved:(browser.startsWith('zh')?'zh':'en');
         applyLanguage(current);
         document.getElementById('languageToggle')?.addEventListener('click',()=>applyLanguage(current==='zh'?'en':'zh'));
+        document.addEventListener('invalid',event=>{try{const field=event.target,key=validationKey(event.target);if(key){field.dataset.i18nValidation=key;field.setCustomValidity(validationText(field,key))}}catch(error){console.error('Validation message update failed',error)}},true);
+        ['input','change'].forEach(type=>document.addEventListener(type,event=>{try{const field=event.target;if(field?.dataset?.i18nValidation){field.setCustomValidity('');delete field.dataset.i18nValidation}}catch(error){console.error('Validation message reset failed',error)}},true));
         const observer=new MutationObserver(records=>{try{records.forEach(record=>record.addedNodes.forEach(node=>translateRoot(node,current)));if(records.some(r=>r.type==='characterData'))translateRoot(document,current)}catch(error){console.error('Dynamic translation failed',error)}});
         observer.observe(document.body,{subtree:true,childList:true,characterData:true});
       } catch(error) { console.error('Language initialization failed',error); }
