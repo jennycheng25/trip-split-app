@@ -331,11 +331,11 @@ render();
 </script><script>
 /* Attach a compressed receipt photo to a bill, stored with the existing local bill data. */
 let receiptPhotoDraft;
-$('#billForm .actions').insertAdjacentHTML('beforebegin',`<section class="receipt-upload" aria-label="小票照片">
-  <span class="receipt-upload-title">小票照片（可选）</span>
+$('#billForm .actions').insertAdjacentHTML('beforebegin',`<section class="receipt-upload" aria-label="收据照片">
+  <span class="receipt-upload-title">收据照片（可选）</span>
   <label class="receipt-upload-button" for="receiptPhotoInput">拍照或上传</label>
   <input id="receiptPhotoInput" type="file" accept="image/*" hidden>
-  <div class="receipt-upload-preview" id="receiptPhotoPreview" hidden><img alt="小票照片预览"><button type="button" id="removeReceiptPhoto">移除照片</button></div>
+  <div class="receipt-upload-preview" id="receiptPhotoPreview" hidden><img alt="收据照片预览"><button type="button" id="removeReceiptPhoto">移除照片</button></div>
 </section>`);
 const receiptPhotoInput=$('#receiptPhotoInput'),receiptPhotoPreview=$('#receiptPhotoPreview');
 function showReceiptPhotoPreview(src){receiptPhotoPreview.hidden=!src;if(src)receiptPhotoPreview.querySelector('img').src=src;else receiptPhotoPreview.querySelector('img').removeAttribute('src')}
@@ -353,14 +353,14 @@ function compressReceiptPhoto(file){return new Promise((resolve,reject)=>{
 })}
 receiptPhotoInput.addEventListener('change',async()=>{const file=receiptPhotoInput.files?.[0];if(!file)return;try{receiptPhotoDraft=await compressReceiptPhoto(file);showReceiptPhotoPreview(receiptPhotoDraft)}catch(error){receiptPhotoDraft=undefined;receiptPhotoInput.value='';toast(error.message||'照片处理失败')}});
 $('#removeReceiptPhoto').onclick=()=>{receiptPhotoDraft=null;receiptPhotoInput.value='';showReceiptPhotoPreview('')};
-document.body.insertAdjacentHTML('beforeend',`<dialog id="receiptDetailDialog"><div class="modal"><h2>小票详细</h2><p class="receipt-upload-hint">查看或添加这张账单的小票照片。</p><div class="receipt-detail-content" id="receiptDetailContent"></div><label class="receipt-upload-button" for="receiptDetailInput">拍照或上传</label><input id="receiptDetailInput" type="file" accept="image/*" hidden><div class="actions"><button class="cancel" type="button" id="closeReceiptDetail">关闭</button></div></div></dialog>`);
+document.body.insertAdjacentHTML('beforeend',`<dialog id="receiptDetailDialog"><div class="modal"><h2>收据详细</h2><p class="receipt-upload-hint">查看或添加这张账单的收据照片。</p><div class="receipt-detail-content" id="receiptDetailContent"></div><label class="receipt-upload-button" for="receiptDetailInput">拍照或上传</label><input id="receiptDetailInput" type="file" accept="image/*" hidden><div class="actions"><button class="cancel" type="button" id="closeReceiptDetail">关闭</button></div></div></dialog>`);
 let receiptDetailBill=null;
-function renderReceiptDetail(){const content=$('#receiptDetailContent');content.replaceChildren();if(receiptDetailBill?.receiptPhoto){const image=document.createElement('img');image.src=receiptDetailBill.receiptPhoto;image.alt=`${receiptDetailBill.merchant} 小票照片`;content.append(image);const remove=document.createElement('button');remove.type='button';remove.className='plain danger';remove.textContent='移除照片';remove.style.marginTop='10px';remove.onclick=()=>{delete receiptDetailBill.receiptPhoto;save();renderReceiptDetail();toast('小票照片已移除')};content.append(remove)}else{const empty=document.createElement('div');empty.className='receipt-detail-empty';empty.textContent='还没有上传小票照片';content.append(empty)}}
+function renderReceiptDetail(){const content=$('#receiptDetailContent');content.replaceChildren();if(receiptDetailBill?.receiptPhoto){const image=document.createElement('img');image.src=receiptDetailBill.receiptPhoto;image.alt=`${receiptDetailBill.merchant} 收据照片`;content.append(image);const remove=document.createElement('button');remove.type='button';remove.className='plain danger';remove.textContent='移除照片';remove.style.marginTop='10px';remove.onclick=()=>{delete receiptDetailBill.receiptPhoto;save();renderReceiptDetail();toast('收据照片已移除')};content.append(remove)}else{const empty=document.createElement('div');empty.className='receipt-detail-empty';empty.textContent='还没有上传收据照片';content.append(empty)}}
 $('#closeReceiptDetail').onclick=()=>$('#receiptDetailDialog').close();
-async function saveReceiptDetailPhoto(event){const file=event.target.files?.[0];if(!file||!receiptDetailBill)return;try{receiptDetailBill.receiptPhoto=await compressReceiptPhoto(file);save();renderReceiptDetail();toast('小票照片已保存')}catch(error){toast(error.message||'照片处理失败')}finally{event.target.value=''}}
+async function saveReceiptDetailPhoto(event){const file=event.target.files?.[0];if(!file||!receiptDetailBill)return;try{receiptDetailBill.receiptPhoto=await compressReceiptPhoto(file);save();renderReceiptDetail();toast('收据照片已保存')}catch(error){toast(error.message||'照片处理失败')}finally{event.target.value=''}}
 $('#receiptDetailInput').addEventListener('change',saveReceiptDetailPhoto);
 const showReceiptWithoutPhoto=showReceipt;
-showReceipt=function(id){showReceiptWithoutPhoto(id);const header=$('#screen .head'),editButton=$('#editBill');if(!header)return;const actions=document.createElement('div');actions.className='receipt-header-actions';if(editButton)actions.append(editButton);const details=document.createElement('button');details.type='button';details.className='plain';details.id='receiptDetails';details.textContent='小票详细';actions.append(details);header.append(actions);details.onclick=()=>{receiptDetailBill=openBill;renderReceiptDetail();$('#receiptDetailDialog').showModal()}};
+showReceipt=function(id){showReceiptWithoutPhoto(id);const header=$('#screen .head'),editButton=$('#editBill');if(!header)return;const actions=document.createElement('div');actions.className='receipt-header-actions';if(editButton)actions.append(editButton);const details=document.createElement('button');details.type='button';details.className='plain';details.id='receiptDetails';details.textContent='收据详细';actions.append(details);header.append(actions);details.onclick=()=>{receiptDetailBill=openBill;renderReceiptDetail();$('#receiptDetailDialog').showModal()}};
 </script><script>
 if ('serviceWorker' in navigator) {
   var hadController = Boolean(navigator.serviceWorker.controller);
