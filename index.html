@@ -196,7 +196,7 @@ dialog[open]::backdrop{animation:backdrop-arrive .2s ease both}
   const CLOUDFLARE_WEB_ANALYTICS_TOKEN = '06d720b0ce8742e88ae6ade2da8baa1f';
   if (CLOUDFLARE_WEB_ANALYTICS_TOKEN) {
     const beacon = document.createElement('script');
-    beacon.defer = true;
+    beacon.type = 'module';
     beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
     beacon.dataset.cfBeacon = JSON.stringify({ token: CLOUDFLARE_WEB_ANALYTICS_TOKEN });
     document.head.appendChild(beacon);
