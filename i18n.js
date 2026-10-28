@@ -34,10 +34,19 @@
     let current = 'zh';
     function translateText(value, lang) {
       let result = value;
-      if (lang === 'en') result = result.replace(/需要支付\s+(\d+)\s+笔/g, (_, count) => `${count} ${count === '1' ? 'payment' : 'payments'} due`);
-      else result = result.replace(/(\d+)\s+payments?\s+due/g, (_, count) => `需要支付 ${count} 笔`);
-      if (lang === 'en') result = result.replace(/(\d+)\s*项/g, (_, count) => `${count} ${Number(count) <= 1 ? 'item' : 'items'}`);
-      else result = result.replace(/(\d+)\s+items?\b/g, (_, count) => `${count} 项`);
+      if (lang === 'en') {
+        result = result.replace(/(\d+)\s*笔账单\s*·\s*(\d+)\s*位同行者/g, (_, bills, people) => `${bills} ${Number(bills) === 1 ? 'bill' : 'bills'} · ${people} ${Number(people) === 1 ? 'traveler' : 'travelers'}`);
+        result = result.replace(/(\d+)\s*位成员/g, (_, count) => `${count} ${Number(count) === 1 ? 'member' : 'members'}`);
+        result = result.replace(/需要支付\s+(\d+)\s+笔/g, (_, count) => `${count} ${count === '1' ? 'payment' : 'payments'} due`);
+        result = result.replace(/识别到\s*(\d+)\s*个候选项目，请核对名称和金额后导入。/g, (_, count) => `Found ${count} candidate ${Number(count) === 1 ? 'item' : 'items'}. Please review the names and amounts before importing.`);
+        result = result.replace(/(\d+)\s*项/g, (_, count) => `${count} ${Number(count) <= 1 ? 'item' : 'items'}`);
+      } else {
+        result = result.replace(/(\d+)\s+bills?\s*·\s*(\d+)\s+travelers?\b/gi, (_, bills, people) => `${bills} 笔账单 · ${people} 位同行者`);
+        result = result.replace(/(\d+)\s+members?\b/gi, (_, count) => `${count} 位成员`);
+        result = result.replace(/(\d+)\s+payments?\s+due/gi, (_, count) => `需要支付 ${count} 笔`);
+        result = result.replace(/Found\s+(\d+)\s+candidate\s+items?\. Please review the names and amounts before importing\./gi, (_, count) => `识别到 ${count} 个候选项目，请核对名称和金额后导入。`);
+        result = result.replace(/(\d+)\s+items?\b/gi, (_, count) => `${count} 项`);
+      }
       const pairs = lang === 'en' ? phrasePairs : phrasePairs.map(([zh,en])=>[en,zh]).sort((a,b)=>b[0].length-a[0].length);
       for (const [from,to] of pairs) if (from) result = result.split(from).join(to);
       return result;
