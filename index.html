@@ -171,6 +171,17 @@ dialog[open]{animation:dialog-arrive .2s cubic-bezier(.2,.7,.25,1) both}
 dialog[open]::backdrop{animation:backdrop-arrive .2s ease both}
 @keyframes backdrop-arrive{from{background-color:rgba(8,30,43,0)}to{background-color:rgba(8,30,43,.48)}}
 @media(hover:hover){.bill:hover,.card:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(36,64,66,.09)}button:hover{filter:brightness(.98)}}
+.receipt-upload{margin-top:16px;padding:14px;border:1px dashed #b9cbc5;border-radius:13px;background:rgba(226,238,232,.38)}
+.receipt-upload-title{display:block;margin-bottom:4px;font-size:14px;font-weight:800}
+.receipt-upload-hint{margin:0 0 10px;color:var(--sub);font-size:12px;line-height:1.5}
+.receipt-upload-button{display:inline-block;padding:0;border:0;border-radius:0;background:none;color:#28695f;font-size:14px;font-weight:800;text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.receipt-upload-preview[hidden]{display:none}
+.receipt-upload-preview{display:flex;align-items:flex-start;gap:10px;margin-top:12px}
+.receipt-upload-preview img{display:block;width:min(128px,38%);height:100px;object-fit:cover;border:1px solid var(--line);border-radius:9px;background:#fff}
+.receipt-upload-preview button{padding:7px 9px;border-radius:8px;background:#fff0ed;color:#994b31;font-size:12px;font-weight:700}
+.receipt-photo{margin:18px 0 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(226,238,232,.28)}
+.receipt-photo h3{margin:0 0 10px;font-size:15px}
+.receipt-photo img{display:block;width:100%;max-height:460px;object-fit:contain;border-radius:9px;background:#fff}
 @media(prefers-reduced-motion:reduce){#screen>*,#screen .grid>*,dialog[open],dialog[open]::backdrop{animation:none!important}*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
 </style></head><body><div class="app"><header class="top"><div class="logo"><img src="icons/icon-192.png" alt=""></div><div class="brand">与鹅同行</div><select id="tripSwitcher" aria-label="切换旅行"></select><button class="plain" id="editTrip">编辑旅行</button></header><div class="layout"><aside class="side"><div class="trip-name" id="tripName">加州海岸线</div><div class="dates" id="tripDates">2026.10.10 — 10.14 · USD</div><button class="nav active" data-page="bills">账单</button><button class="nav" data-page="people">成员</button><button class="nav" data-page="settle">结算</button><button class="new" id="newBill">＋ 新建账单</button><button class="plain" id="newTrip" style="margin:14px 5px 0">＋ 新建旅行</button></aside><main class="screen" id="screen"></main></div></div>
 <dialog id="billDialog"><form class="modal" id="billForm"><h2 id="billDialogTitle">新建账单</h2><div class="form"><label class="field wide">商家 / 项目名称<input required name="merchant" placeholder="例如：Old Fisherman's Grotto"></label><label class="field">谁先付款？<select name="payer" id="payerSelect"></select></label><label class="field">类别<select name="category"><option>餐饮</option><option>交通</option><option>门票</option><option>住宿</option><option>其他</option></select></label><label class="field">日期<input name="date" type="date" required></label><label class="field">当地税率（%）<input name="taxRate" type="number" min="0" step="0.01" value="0" placeholder="例如：9.25"></label><label class="field">账单实际税额（$）<input name="tax" type="number" min="0" step="0.01" value="0"></label><label class="field">小费 / 服务费（$）<input name="tip" type="number" min="0" step="0.01" value="0"></label><label class="field">小费承担者<select name="tipFor" id="tipSelect"><option value="all">全体成员均分</option></select></label></div><div class="actions"><button type="button" class="plain danger" id="deleteBillFromEdit" hidden>删除账单</button><button type="button" class="cancel" onclick="billDialog.close()">取消</button><button class="submit" id="billSubmit">创建并添加项目</button></div></form></dialog>
@@ -315,6 +326,34 @@ render();
   var addItem=document.getElementById('addItem');
   if(addItem&&!addItem._bound){addItem._bound=true;addItem.onclick=function(){showItem()};}
 })();
+</script><script>
+/* Attach a compressed receipt photo to a bill, stored with the existing local bill data. */
+let receiptPhotoDraft;
+$('#billForm .actions').insertAdjacentHTML('beforebegin',`<section class="receipt-upload" aria-label="小票照片">
+  <span class="receipt-upload-title">小票照片（可选）</span>
+  <p class="receipt-upload-hint">拍照或从相册选择，照片会压缩后保存在这台设备上。</p>
+  <label class="receipt-upload-button" for="receiptPhotoInput">拍照或上传</label>
+  <input id="receiptPhotoInput" type="file" accept="image/*" capture="environment" hidden>
+  <div class="receipt-upload-preview" id="receiptPhotoPreview" hidden><img alt="小票照片预览"><button type="button" id="removeReceiptPhoto">移除照片</button></div>
+</section>`);
+const receiptPhotoInput=$('#receiptPhotoInput'),receiptPhotoPreview=$('#receiptPhotoPreview');
+function showReceiptPhotoPreview(src){receiptPhotoPreview.hidden=!src;if(src)receiptPhotoPreview.querySelector('img').src=src;else receiptPhotoPreview.querySelector('img').removeAttribute('src')}
+const saveBillWithoutPhoto=save;
+save=function(){
+  if(receiptPhotoDraft!==undefined){const target=editingBill||(receiptPhotoDraft?state.bills[state.bills.length-1]:null);if(target){if(receiptPhotoDraft)target.receiptPhoto=receiptPhotoDraft;else delete target.receiptPhoto}receiptPhotoDraft=undefined}
+  saveBillWithoutPhoto();
+};
+const showBillWithPhoto=showBill;
+showBill=function(b){receiptPhotoDraft=undefined;showBillWithPhoto(b);receiptPhotoInput.value='';showReceiptPhotoPreview(b?.receiptPhoto||'')};
+function compressReceiptPhoto(file){return new Promise((resolve,reject)=>{
+  if(!file.type.startsWith('image/'))return reject(new Error('请选择图片文件'));
+  if(file.size>25*1024*1024)return reject(new Error('照片不能超过 25 MB'));
+  const reader=new FileReader();reader.onerror=()=>reject(new Error('照片读取失败'));reader.onload=()=>{const image=new Image();image.onerror=()=>reject(new Error('无法读取这张照片'));image.onload=()=>{const scale=Math.min(1,1600/Math.max(image.naturalWidth,image.naturalHeight)),canvas=document.createElement('canvas');canvas.width=Math.round(image.naturalWidth*scale);canvas.height=Math.round(image.naturalHeight*scale);canvas.getContext('2d').drawImage(image,0,0,canvas.width,canvas.height);try{resolve(canvas.toDataURL('image/jpeg',.78))}catch(error){reject(error)}};image.src=reader.result};reader.readAsDataURL(file)
+})}
+receiptPhotoInput.addEventListener('change',async()=>{const file=receiptPhotoInput.files?.[0];if(!file)return;try{receiptPhotoDraft=await compressReceiptPhoto(file);showReceiptPhotoPreview(receiptPhotoDraft)}catch(error){receiptPhotoDraft=undefined;receiptPhotoInput.value='';toast(error.message||'照片处理失败')}});
+$('#removeReceiptPhoto').onclick=()=>{receiptPhotoDraft=null;receiptPhotoInput.value='';showReceiptPhotoPreview('')};
+const showReceiptWithoutPhoto=showReceipt;
+showReceipt=function(id){showReceiptWithoutPhoto(id);const bill=openBill;if(!bill?.receiptPhoto)return;const card=$('#screen .grid > .card');if(card)card.insertAdjacentHTML('beforeend',`<section class="receipt-photo"><h3>小票照片</h3><img src="${bill.receiptPhoto}" alt="${esc(bill.merchant)} 小票照片"></section>`)};
 </script><script>
 if ('serviceWorker' in navigator) {
   var hadController = Boolean(navigator.serviceWorker.controller);
