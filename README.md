@@ -27,8 +27,19 @@
 
 旅行、账单和收据照片保存在当前浏览器的本地存储中。应用没有账号系统，数据不会自动同步到其他设备；清除浏览器网站数据可能导致记录丢失。建议妥善保管重要记录。
 
+可选的 Cloudflare Web Analytics 仅统计网站访问情况，不会读取旅行、账单或收据数据。默认未启用；配置站点 token 后才会加载统计脚本并开始累计访问数据。Cloudflare 表示 Web Analytics 不收集访客个人数据。
+
 收据 OCR 使用 Tesseract.js。识别组件首次使用时会从 jsDelivr 加载；识别在浏览器本地进行，识别结果需要自行核对。
 
+## 访问统计
+
+项目使用 Cloudflare Web Analytics（默认关闭）。启用步骤：
+
+1. 在 Cloudflare 控制台打开 **Web Analytics**，添加 `jennycheng25.github.io` 网站并创建站点 token。
+2. 将 token 填入 `index.html` 顶部的 `CLOUDFLARE_WEB_ANALYTICS_TOKEN` 常量。
+3. 提交并部署到 GitHub Pages；之后可在 Cloudflare 的 Web Analytics 面板查看访客和页面浏览趋势。
+
+这是单页应用，默认主要统计网页加载访问，不会自动区分账单、成员和结算等应用内页面切换。不要把旅行或账单内容作为统计事件发送。
 ## 本地运行
 
 这是一个无构建步骤的静态网页项目。可用任意本地静态 HTTP 服务器提供项目目录，然后在浏览器打开对应地址。需要通过 HTTP(S) 访问才能使用 Service Worker 和 PWA 离线功能。
