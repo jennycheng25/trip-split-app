@@ -155,7 +155,7 @@ button,input,select{font-family:var(--font-ui)}
   .field{min-width:0}
   .field input,.field select{display:block;width:100%;min-width:0;max-width:100%}
   #billDialog input[type="date"]{box-sizing:border-box;inline-size:100%;min-inline-size:0;max-inline-size:100%}
-  @supports (-webkit-touch-callout:none){#billDialog input[type="date"]{inline-size:calc(100% - 20px);max-inline-size:calc(100% - 20px)}}
+  @supports (-webkit-touch-callout:none){#billDialog input[type="date"]{display:inline-block;width:100%;inline-size:100%;max-width:100%;max-inline-size:100%}#billDialog input[type="date"]::-webkit-date-and-time-value{text-align:left;height:1.2em;line-height:1.2}}
   .actions{min-width:0;flex-wrap:wrap}
   .actions button{min-width:0;max-width:100%;white-space:normal;overflow-wrap:anywhere}
 }
