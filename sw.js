@@ -1,4 +1,4 @@
-const CACHE = 'tongxing-v3';
+const CACHE = 'tongxing-v5';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
@@ -11,7 +11,7 @@ self.addEventListener('install', function(event) {
         './icons/icon-192.png',
         './icons/icon-512.png'
       ]);
-    })
+    }).then(function() { return self.skipWaiting(); })
   );
 });
 
