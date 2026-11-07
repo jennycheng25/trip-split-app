@@ -101,7 +101,7 @@
       label.classList.add('has-error');error.textContent=validationText(field,key);return true;
     }
     function applyLanguage(lang) {
-      try { current=lang==='en'?'en':'zh';localStorage.setItem('trip-split-language',current);translateRoot(document,current);document.querySelectorAll('.field.has-error input,.field.has-error select,.field.has-error textarea').forEach(showValidation);const button=document.getElementById('languageToggle');if(button){button.textContent=current==='zh'?'EN':'中文';button.setAttribute('aria-label',current==='zh'?'Switch language':'切换语言')} } catch(error) { console.error('Language switch failed',error); }
+      try { current=lang==='en'?'en':'zh';localStorage.setItem('trip-split-language',current);translateRoot(document,current);document.querySelectorAll('.field.has-error input,.field.has-error select,.field.has-error textarea').forEach(showValidation);const button=document.getElementById('languageToggle');if(button){button.innerHTML='<svg class="language-mark" aria-hidden="true" viewBox="0 0 24 24"><g class="language-mark-zh"><path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/></g><g class="language-mark-en"><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/></g></svg>';button.dataset.language=current;button.setAttribute('aria-label',current==='zh'?'切换语言':'Switch language')} } catch(error) { console.error('Language switch failed',error); }
     }
     document.addEventListener('DOMContentLoaded',function(){
       try {
