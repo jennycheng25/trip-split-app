@@ -579,4 +579,18 @@ body{min-height:100vh;background-color:var(--bg);background-image:radial-gradien
   #billDialog #billForm input[type="date"]{inline-size:100%!important;min-inline-size:0!important;max-inline-size:100%!important}
   #billDialog #billForm input,#billDialog #billForm select{min-height:48px}
   #billDialog #billForm .receipt-upload{width:100%!important;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
-}</style></body></html>
+}</style><style>
+@media(max-width:600px){
+  dialog:not(#billDialog){width:calc(100vw - 24px)!important;max-width:560px!important;max-height:calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom))!important;overflow-y:auto!important;overscroll-behavior:contain}
+  dialog:not(#billDialog)>.modal,dialog:not(#billDialog) form.modal{width:100%!important;min-width:0!important;max-width:100%!important;padding:clamp(16px,4vw,20px)!important}
+  dialog:not(#billDialog) form.modal>.form{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:10px!important;width:100%!important;min-width:0!important}
+  dialog:not(#billDialog) form.modal>.form>.field,dialog:not(#billDialog) form.modal>.form>.field.wide{grid-column:1/-1!important;width:100%!important;min-width:0!important;max-width:100%!important}
+  dialog:not(#billDialog) input:not([type="checkbox"]):not([type="radio"]),dialog:not(#billDialog) select,dialog:not(#billDialog) textarea{display:block;width:100%;min-width:0;max-width:100%;box-sizing:border-box}
+  dialog:not(#billDialog) input:not([type="checkbox"]):not([type="radio"]),dialog:not(#billDialog) select{min-height:48px}
+  dialog:not(#billDialog) textarea{min-height:96px;resize:vertical}
+  dialog:not(#billDialog) .actions{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:8px!important;width:100%!important;min-width:0!important;box-sizing:border-box!important}
+  dialog:not(#billDialog) .actions>button:not(#deleteItemFromEdit):not(#deletePersonFromEdit):not(#deleteTrip){flex:0 1 auto!important;min-width:0!important;max-width:100%!important;min-height:44px;white-space:nowrap!important;overflow-wrap:normal!important;padding-inline:clamp(8px,3vw,14px)!important}
+  dialog:not(#billDialog) .actions>#deletePersonFromEdit,dialog:not(#billDialog) .actions>#deleteTrip{flex:0 0 44px!important;margin-right:auto!important}
+  #billDialog #billForm .actions{grid-template-rows:auto!important;flex-wrap:nowrap!important}
+}
+</style></body></html></style></body></html>
