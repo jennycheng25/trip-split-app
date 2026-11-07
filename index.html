@@ -502,6 +502,9 @@ if ('serviceWorker' in navigator) {
 .hero .people.avatar-stack .av:first-child{margin-left:0}
 .hero .people.avatar-stack .av-overflow{display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:700}
 #screen>.hero>.people.avatar-stack{width:max-content;margin-left:auto;align-self:flex-end;justify-content:flex-end}
+#screen>.hero{display:flex;flex-direction:row;align-items:flex-start;justify-content:space-between}
+#screen>.hero>div:last-child,#screen>.hero>.people.avatar-stack{margin-left:auto;align-self:flex-start}
+@media(max-width:380px){#screen>.hero{flex-wrap:wrap}}
 </style><style>
 button{-webkit-tap-highlight-color:transparent}
 button:focus:not(:focus-visible){outline:none!important}
@@ -517,7 +520,7 @@ body.edge-swipe-settle .bottom-nav{transition:transform .22s cubic-bezier(.2,.75
 #screen .receipt-table td:nth-child(3) .receipt-people{display:flex;justify-content:flex-end;width:100%}
 .trip-entry-total,.trip-entry-total b{text-align:right!important}
 #screen>.hero>div:last-child{margin-left:auto;text-align:right!important}
-@media(max-width:520px){#screen>.hero>div:last-child{align-self:flex-end}}
+@media(max-width:520px){#screen>.hero>div:last-child{align-self:flex-start}}
 #refreshPage{width:34px;height:34px;flex-basis:34px;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
 #refreshPage:hover{border:0;background:transparent}
 #refreshPage svg{width:19px;height:19px;stroke-width:1.8}
