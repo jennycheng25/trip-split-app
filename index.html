@@ -455,7 +455,7 @@ save=function(){
   saveBillWithoutPhoto();
 };
 const showBillWithPhoto=showBill;
-showBill=function(b){resetReceiptUpload();receiptPhotoDraft=undefined;showBillWithPhoto(b);receiptPhotoInput.value='';showReceiptPhotoPreview(b?.receiptPhoto||'');if(b?.receiptPhoto)setReceiptUploadProgress(100)};
+showBill=function(b){resetReceiptUpload();receiptPhotoDraft=undefined;showBillWithPhoto(b);const deleteButton=$('#deleteBillFromEdit');deleteButton.hidden=!b;if(b)deleteButton.style.removeProperty('display');else deleteButton.style.setProperty('display','none','important');receiptPhotoInput.value='';showReceiptPhotoPreview(b?.receiptPhoto||'');if(b?.receiptPhoto)setReceiptUploadProgress(100)};
 function compressReceiptPhoto(file,onProgress){return new Promise((resolve,reject)=>{
   if(!file.type.startsWith('image/'))return reject(new Error('请选择图片文件'));
   if(file.size>25*1024*1024)return reject(new Error('照片不能超过 25 MB'));
@@ -609,4 +609,6 @@ body{min-height:100vh;background-color:var(--bg);background-image:radial-gradien
   #billDialog #billForm .actions>.cancel,#billDialog #billForm .actions>.submit{position:static!important;inset:auto!important;grid-column:auto!important;grid-row:auto!important;align-self:center!important;flex-shrink:1!important;white-space:nowrap!important}
   .bottom-nav{bottom:calc(22px + env(safe-area-inset-bottom))!important;gap:8px!important;padding:9px!important}
   .bottom-nav .nav.active{margin-inline:3px!important}
-}</style></body></html>
+}
+#billDialog .actions>#deleteBillFromEdit[hidden]{display:none!important}
+</style></body></html>
