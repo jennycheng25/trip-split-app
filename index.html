@@ -259,10 +259,10 @@ body:has(#workspace:not([hidden])){padding-bottom:calc(120px + env(safe-area-ins
 #workspace .side{position:static!important;display:block;height:auto!important;margin:0;padding:0;overflow:visible;background:none;border:0;box-shadow:none;}
 #workspace .side .back-to-trips{position:static;top:auto;left:auto;display:inline-flex;align-items:center;min-height:40px;margin:0 0 12px;padding:8px 10px;font-size:12px;white-space:nowrap;transform:none;}
 #workspace .side .back-to-trips{min-height:48px;padding:8px 10px;font-size:18px;font-weight:800;}
-.bottom-nav{position:fixed;z-index:50;left:50%;bottom:calc(16px + env(safe-area-inset-bottom));display:none;align-items:center;gap:4px;width:min(360px,calc(100% - 32px));padding:7px;background:rgba(255,254,250,.96);border:1px solid rgba(23,59,74,.12);border-radius:20px;box-shadow:0 10px 32px rgba(23,59,74,.18);backdrop-filter:blur(16px);transform:translateX(-50%);}
+.bottom-nav{position:fixed;z-index:50;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));display:none;align-items:center;gap:1px;width:min(280px,calc(100% - 32px));padding:4px;background:rgba(255,254,250,.96);border:1px solid rgba(23,59,74,.12);border-radius:16px;box-shadow:0 8px 24px rgba(23,59,74,.16);backdrop-filter:blur(16px);transform:translateX(-50%);}
 body:has(#workspace:not([hidden])) .bottom-nav{display:flex;}
-.bottom-nav .nav{flex:1 1 0;width:auto;min-width:0;min-height:46px;margin:0;padding:8px 4px;text-align:center;font-size:13px;border-radius:14px;}
-.bottom-nav .nav.active{box-shadow:none;background:#e1ece6;color:#28695f;}
+.bottom-nav .nav{flex:1 1 0;width:auto;min-width:0;min-height:44px;margin:0;padding:7px 6px;text-align:center;font-size:14px;font-weight:700;border-radius:12px;transition:flex-grow .48s cubic-bezier(.34,1.56,.64,1),background-color .18s ease,color .18s ease;}
+.bottom-nav .nav.active{flex-grow:1.24;box-shadow:none;background:#e1ece6;color:#28695f;}
 body.receipt-view .bottom-nav{display:none!important;}
 body.receipt-view #screen .grid{margin-top:-5px;}
 #workspace .side #newTrip{display:none;}
