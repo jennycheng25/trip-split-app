@@ -322,7 +322,7 @@ showBill=function(b){billModalWithFields(b);['tax','tip','tipFor'].forEach(name=
 /* Each item can be entered before tax or with tax already included. */
 $('#splitType').closest('label').insertAdjacentHTML('afterend','<label class="field floating"><select name="priceType" id="priceType"><option value="before">税前价格</option><option value="included">已含税价格</option></select><span>价格类型</span></label>');
 const originalShowItem=showItem;
-showItem=function(id){originalShowItem(id);$('#priceType').value=editItem?.taxIncluded?'included':'before';$('#deleteItemFromEdit').hidden=!editItem;const submit=$('#itemDialog .actions .submit'),english=document.documentElement.lang==='en';if(submit)submit.textContent=editItem?(english?'Save item':'保存项目'):(english?'Add':'添加')};
+showItem=function(id){originalShowItem(id);$('#priceType').value=editItem?.taxIncluded?'included':'before';$('#deleteItemFromEdit').hidden=!editItem;const submit=$('#itemDialog .actions .submit'),english=document.documentElement.lang==='en';if(submit)submit.textContent=editItem?(english?'Save item':'保存项目'):(english?'Add item':'添加项目')};
 function itemNet(b,i){let rate=Number(b.taxRate||0)/100;return i.taxIncluded&&rate?Number(i.amount)/(1+rate):Number(i.amount||0)}
 function itemGross(b,i){let rate=Number(b.taxRate||0)/100;return i.taxIncluded?Number(i.amount||0):Number(i.amount||0)*(1+rate)}
 taxShare=function(b,i){return itemGross(b,i)-itemNet(b,i)};
