@@ -1,4 +1,4 @@
-const CACHE = 'tongxing-v16';
+const CACHE = 'tongxing-v17';
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
