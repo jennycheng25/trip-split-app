@@ -501,6 +501,7 @@ if ('serviceWorker' in navigator) {
 .hero .people.avatar-stack .av{position:relative;flex:0 0 42px;width:42px;height:42px;margin-left:-10px;border:2px solid #f5f2e8;font-size:13px}
 .hero .people.avatar-stack .av:first-child{margin-left:0}
 .hero .people.avatar-stack .av-overflow{display:grid;place-items:center;border-radius:50%;background:var(--ink);color:#fff;font-size:12px;font-weight:700}
+#screen>.hero>.people.avatar-stack{width:max-content;margin-left:auto;align-self:flex-end;justify-content:flex-end}
 </style><style>
 button{-webkit-tap-highlight-color:transparent}
 button:focus:not(:focus-visible){outline:none!important}
@@ -510,10 +511,13 @@ body.edge-swipe-active .bottom-nav{transition:none!important}
 body.edge-swipe-settle .bottom-nav{transition:transform .22s cubic-bezier(.2,.75,.25,1)!important}
 #screen .settlement-person .bill-total,#screen .bill[data-bill] .bill-total{ text-align:right!important }
 #screen>section.card[style*="margin-top:20px"]>.table th:nth-child(2),#screen>section.card[style*="margin-top:20px"]>.table td:nth-child(2){text-align:right!important}
-#screen .receipt-table th:nth-child(2){text-align:left!important}
+#screen .receipt-table th:nth-child(2){text-align:right!important}
 #screen .receipt-table td:nth-child(2){text-align:right!important}
+#screen .receipt-table th:nth-child(3),#screen .receipt-table td:nth-child(3){text-align:right!important}
+#screen .receipt-table td:nth-child(3) .receipt-people{display:flex;justify-content:flex-end;width:100%}
 .trip-entry-total,.trip-entry-total b{text-align:right!important}
-#screen>.hero>div:last-child{text-align:right!important}
+#screen>.hero>div:last-child{margin-left:auto;text-align:right!important}
+@media(max-width:520px){#screen>.hero>div:last-child{align-self:flex-end}}
 #refreshPage{width:34px;height:34px;flex-basis:34px;border:0;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
 #refreshPage:hover{border:0;background:transparent}
 #refreshPage svg{width:19px;height:19px;stroke-width:1.8}
